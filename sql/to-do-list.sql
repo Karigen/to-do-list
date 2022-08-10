@@ -1,35 +1,47 @@
+drop database if exists to_do_list;
+
 create database to_do_list;
 
-create table users
+use to_do_list;
+
+create table user
 (
-    id       int(10) primary key auto_increment,
+    userid   int(11) primary key auto_increment,
     username varchar(255) not null,
     password varchar(255) not null,
     email    varchar(255),
-    is_flag  boolean comment '逻辑删除键'
+    flag     boolean default true comment '逻辑删除键'
+);
+
+create table fans
+(
+    relation_id int(11) primary key auto_increment,
+    userid      int(11) not null,
+    fan_id      int(11) not null,
+    flag        boolean default true comment '逻辑删除键',
+    foreign key (userid) references user (userid),
+    foreign key (fan_id) references user (userid),
+    unique (userid, fan_id)
 );
 
 create table task
 (
-    id          int(10) primary key auto_increment,
-    userid      int(10)      not null,
+    task_id     int(11) primary key auto_increment,
+    userid      int(11)      not null,
     task_name   varchar(255) not null,
     description text comment '备注',
-    deadline    datetime     not null,
-    priority    int(1) check ( value in (1, 2, 3)) comment '越小优先级越高',
-    is_finish   boolean default false,
-    flag        boolean comment '逻辑删除键',
-    foreign key (userid) references users (id)
+    deadline    int(11)      comment '小时',
+    finish      boolean default false,
+    flag        boolean default true comment '逻辑删除键',
+    foreign key (userid) references user (userid)
 );
 
-create table diary
+create table blog
 (
-    id        int(10) primary key auto_increment,
-    userid    int(10)   not null,
-    task_id   int(10)   not null,
-    context   text      not null,
-    post_time timestamp not null comment '发送时间戳',
-    flag      boolean comment '逻辑删除键',
-    foreign key (userid) references users (id),
-    foreign key (task_id) references task (id)
+    blog_id   int(11) primary key auto_increment,
+    userid    int(11)    not null,
+    context   mediumtext not null,
+    post_time int(11)    not null comment '发送时间戳,1970-1-1至今的小时数',
+    flag      boolean default true comment '逻辑删除键',
+    foreign key (userid) references user (userid)
 );
