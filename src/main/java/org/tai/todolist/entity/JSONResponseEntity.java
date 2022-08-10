@@ -36,6 +36,10 @@ public class JSONResponseEntity {
         return new JSONResponseEntity(true, "00000", "一切ok");
     }
 
+    public static JSONResponseEntity error(String code, String message) {
+        return new JSONResponseEntity(false, code, message);
+    }
+
     public static JSONResponseEntity error(BusinessException businessException) {
         return new JSONResponseEntity(false, businessException.code, businessException.message);
     }

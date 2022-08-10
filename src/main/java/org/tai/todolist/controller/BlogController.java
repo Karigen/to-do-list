@@ -52,7 +52,7 @@ public class BlogController {
                 .count();
 
         Long follow = fansService.query()
-                .eq("fanid", userid)
+                .eq("fan_id", userid)
                 .count();
 
         List<Blog> blogs = blogService.list(Wrappers.<Blog>query()
