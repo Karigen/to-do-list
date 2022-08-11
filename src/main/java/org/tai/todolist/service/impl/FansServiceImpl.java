@@ -1,7 +1,7 @@
 package org.tai.todolist.service.impl;
 
 import org.tai.todolist.entity.Fans;
-import org.tai.todolist.aop.dao.FansMapper;
+import org.tai.todolist.dao.FansMapper;
 import org.tai.todolist.service.FansService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

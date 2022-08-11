@@ -1,5 +1,6 @@
 package org.tai.todolist.aop;
 
+import jdk.jfr.Experimental;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Aspect
 @Slf4j
+@Experimental
 public class LogAop {
 
     @AfterThrowing("execution(* org.tai.todolist.controller.ExceptionController.exception(..))")

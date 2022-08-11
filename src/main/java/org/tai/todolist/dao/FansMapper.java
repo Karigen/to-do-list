@@ -1,6 +1,6 @@
-package org.tai.todolist.aop.dao;
+package org.tai.todolist.dao;
 
-import org.tai.todolist.entity.Task;
+import org.tai.todolist.entity.Fans;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Karigen
  * @since 2022-08-09
  */
-public interface TaskMapper extends BaseMapper<Task> {
+public interface FansMapper extends BaseMapper<Fans> {
 
 }
