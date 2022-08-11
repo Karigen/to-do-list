@@ -1,4 +1,4 @@
-package org.tai.todolist.dao;
+package org.tai.todolist.aop.dao;
 
 import org.tai.todolist.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

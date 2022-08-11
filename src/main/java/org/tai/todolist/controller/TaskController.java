@@ -40,8 +40,8 @@ public class TaskController {
                 .setDeadline(-1)
                 .insert();
 
-        List<Task> tasks = taskService.list(Wrappers.<Task>query()
-                .eq("userid", userid));
+        List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
+                .eq(Task::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
@@ -53,8 +53,8 @@ public class TaskController {
                                      @RequestParam("taskid") Integer taskId) {
         taskService.removeById(taskId);
 
-        List<Task> tasks = taskService.list(Wrappers.<Task>query()
-                .eq("userid", userid));
+        List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
+                .eq(Task::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
@@ -66,8 +66,8 @@ public class TaskController {
                                         @RequestParam("taskid") List<Integer> taskId) {
         taskService.removeBatchByIds(taskId);
 
-        List<Task> tasks = taskService.list(Wrappers.<Task>query()
-                .eq("userid", userid));
+        List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
+                .eq(Task::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
@@ -76,8 +76,8 @@ public class TaskController {
     @PostMapping("/get")
     @ApiOperation("获取所有任务")
     public JSONResponseEntity get(@RequestParam("userid") Integer userid) {
-        List<Task> tasks = taskService.list(Wrappers.<Task>query()
-                .eq("userid", userid));
+        List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
+                .eq(Task::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
@@ -97,8 +97,8 @@ public class TaskController {
 
         taskService.update(Wrappers.update(task));
 
-        List<Task> tasks = taskService.list(Wrappers.<Task>query()
-                .eq("userid", userid));
+        List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
+                .eq(Task::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);

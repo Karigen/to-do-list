@@ -41,8 +41,9 @@ public class UserController {
                                        @RequestParam("password") String password,
                                        @RequestParam(value = "email", required = false) String email) {
         // 检查用户名是否已经存在
-        User check = userService.getOne(Wrappers.<User>query()
-                .eq("username", username));
+        User check = userService.getOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getUsername, username));
+
         if (check != null) {
             throw new BusinessException(ErrorCode.USERNAME_ALREADY_EXIST);
         }
@@ -61,8 +62,8 @@ public class UserController {
     @ApiOperation("用户登录")
     public JSONResponseEntity login(@RequestParam("username") String username,
                                     @RequestParam("password") String password) {
-        User check = userService.getOne(Wrappers.<User>query()
-                .eq("username", username));
+        User check = userService.getOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getUsername, username));
 
         if (check == null) {
             throw new BusinessException(ErrorCode.USERNAME_NOT_EXIST);

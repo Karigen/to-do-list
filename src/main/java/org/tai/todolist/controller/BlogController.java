@@ -43,20 +43,20 @@ public class BlogController {
     @PostMapping("/get")
     @ApiOperation("获取用户粉丝数,博客数,follow数和所有博客")
     public JSONResponseEntity get(@RequestParam("userid") Integer userid) {
-        Long fans = fansService.query()
-                .eq("userid", userid)
+        Long fans = fansService.lambdaQuery()
+                .eq(Fans::getUserid, userid)
                 .count();
 
-        Long count = blogService.query()
-                .eq("userid", userid)
+        Long count = blogService.lambdaQuery()
+                .eq(Blog::getUserid, userid)
                 .count();
 
-        Long follow = fansService.query()
-                .eq("fan_id", userid)
+        Long follow = fansService.lambdaQuery()
+                .eq(Fans::getFanId, userid)
                 .count();
 
-        List<Blog> blogs = blogService.list(Wrappers.<Blog>query()
-                .eq("userid", userid));
+        List<Blog> blogs = blogService.list(Wrappers.<Blog>lambdaQuery()
+                .eq(Blog::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("fans", fans)
@@ -86,8 +86,8 @@ public class BlogController {
     @ApiOperation("查询用户并follow")
     public JSONResponseEntity users(@RequestParam("myuserid") Integer myUserid,
                                     @RequestParam("searchingusername") String searchingUsername) {
-        User follow = userService.getOne(Wrappers.<User>query()
-                .eq("username", searchingUsername));
+        User follow = userService.getOne(Wrappers.<User>lambdaQuery()
+                .eq(User::getUsername, searchingUsername));
 
         if (follow == null) {
             throw new BusinessException(ErrorCode.USERNAME_NOT_EXIST);

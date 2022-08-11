@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql:///to_do_list
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password:
+    password: root
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -14,6 +14,7 @@ mybatis-plus:
       logic-delete-value: false
   configuration:
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  type-aliases-package: org.tai.todolist.dao
 swagger:
   title: to-do-list
   description: 网页版to-do-list

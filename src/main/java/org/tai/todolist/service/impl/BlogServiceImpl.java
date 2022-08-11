@@ -1,7 +1,7 @@
 package org.tai.todolist.service.impl;
 
 import org.tai.todolist.entity.Blog;
-import org.tai.todolist.dao.BlogMapper;
+import org.tai.todolist.aop.dao.BlogMapper;
 import org.tai.todolist.service.BlogService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
