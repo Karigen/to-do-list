@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
+import java.io.Serial;
 import java.io.Serializable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
@@ -25,6 +27,8 @@ import lombok.experimental.Accessors;
 @Schema(name = "Blog", description = "")
 public class Blog extends Model<Blog> {
 
+
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "blog_id", type = IdType.AUTO)

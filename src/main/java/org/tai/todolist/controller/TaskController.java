@@ -85,20 +85,20 @@ public class TaskController {
 
     @PostMapping("/update")
     @ApiOperation("更新任务")
-    public JSONResponseEntity update(@RequestParam("userid") Integer userid, //taskid?
+    public JSONResponseEntity update(@RequestParam("taskid") Integer taskId,
                                      @RequestParam("description") String description,
                                      @RequestParam("deadline") Integer deadline,
                                      @RequestParam("finish") Boolean finish) {
         Task task = new Task()
-                .setUserid(userid)
+                .setTaskId(taskId)
                 .setDescription(description)
                 .setDeadline(deadline)
                 .setFinish(finish);
 
-        taskService.update(task, Wrappers.<Task>lambdaQuery().eq(Task::getUserid, userid));
+        taskService.update(task, Wrappers.<Task>lambdaQuery().eq(Task::getTaskId, taskId));
 
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
-                .eq(Task::getUserid, userid));
+                .eq(Task::getTaskId, taskId));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
