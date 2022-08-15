@@ -3,10 +3,7 @@ package org.tai.todolist.controller;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tai.todolist.entity.Blog;
 import org.tai.todolist.entity.Fans;
 import org.tai.todolist.entity.JSONResponseEntity;
@@ -29,6 +26,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/blog")
+@CrossOrigin
 public class BlogController {
 
     @Autowired

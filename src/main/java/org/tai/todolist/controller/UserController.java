@@ -6,10 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tai.todolist.entity.JSONResponseEntity;
 import org.tai.todolist.entity.User;
 import org.tai.todolist.exception.BusinessException;
@@ -27,6 +24,7 @@ import org.tai.todolist.service.UserService;
 @RestController
 @RequestMapping("/user")
 @Api("用户管理")
+@CrossOrigin
 public class UserController {
 
     @Autowired

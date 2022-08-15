@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 import java.io.Serial;
 import java.io.Serializable;
+
+import io.swagger.annotations.ApiModel;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +27,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Accessors(chain = true)
 @Schema(name = "Blog", description = "")
+@ApiModel
 public class Blog extends Model<Blog> {
 
 

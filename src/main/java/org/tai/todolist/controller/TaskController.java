@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.tai.todolist.entity.JSONResponseEntity;
 import org.tai.todolist.entity.Task;
 import org.tai.todolist.service.TaskService;
@@ -25,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/task")
 @Api("任务管理")
+@CrossOrigin
 public class TaskController {
 
     @Autowired
@@ -33,7 +31,7 @@ public class TaskController {
     @PostMapping("/add")
     @ApiOperation("新建任务")
     public JSONResponseEntity add(@RequestParam("userid") Integer userid,
-                                  @RequestParam("task-name") String taskName) {
+                                  @RequestParam("task_name") String taskName) {
         new Task()
                 .setUserid(userid)
                 .setTaskName(taskName)
