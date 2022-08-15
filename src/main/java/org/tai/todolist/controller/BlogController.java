@@ -65,8 +65,8 @@ public class BlogController {
                 .newData("blogs", blogs);
     }
 
-    private Integer getCurrentTimeHours() {
-        return (int) System.currentTimeMillis() / (60 * 60 * 1_000);
+    private long getCurrentTimeHours() {
+        return System.currentTimeMillis() / (60 * 60 * 1_000);
     }
 
     @PostMapping("/add")
@@ -76,7 +76,7 @@ public class BlogController {
         new Blog()
                 .setUserid(userid)
                 .setContext(context)
-                .setPostTime(getCurrentTimeHours())
+                .setPostTime((int) getCurrentTimeHours())
                 .insert();
 
         return JSONResponseEntity.ok();

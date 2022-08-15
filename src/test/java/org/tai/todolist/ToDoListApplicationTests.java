@@ -30,7 +30,8 @@ class ToDoListApplicationTests {
         System.out.println("test");
     }
 
-    @Test
+    // @Test
+    @Deprecated
     void mybatisPlusGenerator() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:mysql:///to_do_list", "root", "root")
                 .dbQuery(new MySqlQuery())
@@ -104,6 +105,11 @@ class ToDoListApplicationTests {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testCurrentTimeHours() {
+        System.out.println(System.currentTimeMillis() / (60 * 60 * 1_000));
     }
 
 }

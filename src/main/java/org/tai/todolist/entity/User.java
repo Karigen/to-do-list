@@ -39,6 +39,7 @@ public class User extends Model<User> {
 
     @Schema(description = "逻辑删除键")
     @TableLogic
+    @TableField(select = false)
     private Boolean flag;
 
     @Override

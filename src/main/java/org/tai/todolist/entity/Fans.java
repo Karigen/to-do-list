@@ -1,6 +1,7 @@
 package org.tai.todolist.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
@@ -35,6 +36,7 @@ public class Fans extends Model<Fans> {
 
     @Schema(description = "逻辑删除键")
     @TableLogic
+    @TableField(select = false)
     private Boolean flag;
 
     @Override
