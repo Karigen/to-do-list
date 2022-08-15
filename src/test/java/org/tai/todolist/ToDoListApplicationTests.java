@@ -33,7 +33,8 @@ class ToDoListApplicationTests {
     // @Test
     @Deprecated
     void mybatisPlusGenerator() {
-        DataSourceConfig dataSourceConfig = new DataSourceConfig.Builder("jdbc:mysql:///to_do_list", "root", "root")
+        DataSourceConfig dataSourceConfig = new DataSourceConfig
+                .Builder("jdbc:mysql:///to_do_list", "root", "password")
                 .dbQuery(new MySqlQuery())
                 .typeConvert(new MySqlTypeConvert())
                 .keyWordsHandler(new MySqlKeyWordsHandler())
@@ -109,7 +110,8 @@ class ToDoListApplicationTests {
 
     @Test
     public void testCurrentTimeHours() {
-        System.out.println(System.currentTimeMillis() / (60 * 60 * 1_000));
+        Integer hours = (int) (System.currentTimeMillis() / (60 * 60 * 1_000));
+        System.out.println(hours);
     }
 
 }
