@@ -16,23 +16,26 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.http.codec.json.Jackson2JsonEncoder;
+import org.tai.todolist.dao.BlogMapper;
 import org.tai.todolist.exception.BusinessException;
 import org.tai.todolist.exception.ErrorCode;
+
+import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 class ToDoListApplicationTests {
 
     @Test
-    void contextLoads() {
+    public void contextLoads() {
         System.out.println("test");
     }
 
     // @Test
     @Deprecated
-    void mybatisPlusGenerator() {
+    public void mybatisPlusGenerator() {
         DataSourceConfig dataSourceConfig = new DataSourceConfig
                 .Builder("jdbc:mysql:///to_do_list", "root", "password")
                 .dbQuery(new MySqlQuery())
@@ -50,12 +53,17 @@ class ToDoListApplicationTests {
                 .build();
 
         PackageConfig packageConfig = new PackageConfig.Builder()
+                /*
+                    大坑:mybatis-plus生成的xml文件只能放在resources目录下才能被扫描到
+                    和mybatis一样XxMapper和XxMapper.xml放在一起是不能被扫描到的
+                 */
+                .xml("mapper")
+
                 .parent("org.tai.todolist")
                 .entity("entity")
                 .service("service")
                 .serviceImpl("service.impl")
                 .mapper("dao")
-                .xml("dao")
                 .controller("controller")
                 .build();
 
@@ -112,6 +120,15 @@ class ToDoListApplicationTests {
     public void testCurrentTimeHours() {
         Integer hours = (int) (System.currentTimeMillis() / (60 * 60 * 1_000));
         System.out.println(hours);
+    }
+
+    @Autowired
+    private BlogMapper blogMapper;
+
+    @Test
+    public void testSelectAllBlogsRelated() {
+        List<Map<Integer, Object>> maps = blogMapper.selectAllBlogsRelated(9);
+        maps.forEach(System.out::println);
     }
 
 }

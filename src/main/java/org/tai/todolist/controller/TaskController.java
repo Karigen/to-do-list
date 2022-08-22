@@ -1,12 +1,14 @@
 package org.tai.todolist.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.tai.todolist.entity.JSONResponseEntity;
 import org.tai.todolist.entity.Task;
+import org.tai.todolist.entity.User;
 import org.tai.todolist.service.TaskService;
 
 import java.util.List;
@@ -77,8 +79,31 @@ public class TaskController {
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
                 .eq(Task::getUserid, userid));
 
+        Long unfinished = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .eq(Task::getFinish, false)
+                .count();
+
+        Long finished = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .eq(Task::getFinish, true)
+                .count();
+
+        Long all = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .count();
+
+        Long isExpire = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .gt(Task::getDeadline, System.currentTimeMillis())
+                .count();
+
         return JSONResponseEntity.ok()
-                .newData("tasks", tasks);
+                .newData("tasks", tasks)
+                .newData("unfinished", unfinished)
+                .newData("finished", finished)
+                .newData("all", all)
+                .newData("isExpire", isExpire);
     }
 
     @PostMapping("/update")

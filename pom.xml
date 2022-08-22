@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.tai</groupId>
     <artifactId>to-do-list</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0-release</version>
     <name>to-do-list</name>
     <description>to-do-list</description>
     <properties>

@@ -10,6 +10,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,14 +36,18 @@ public class Blog extends Model<Blog> {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "blog_id", type = IdType.AUTO)
+    @ApiModelProperty
     private Integer blogId;
 
+    @ApiModelProperty
     private Integer userid;
 
     @TableField("`context`")
+    @ApiModelProperty
     private String context;
 
     @Schema(description = "发送时间戳,1970-1-1至今的小时数")
+    @ApiModelProperty
     private Integer postTime;
 
     @Schema(description = "逻辑删除键")

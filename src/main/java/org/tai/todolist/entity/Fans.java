@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,10 +32,13 @@ public class Fans extends Model<Fans> {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "relation_id", type = IdType.AUTO)
+    @ApiModelProperty
     private Integer relationId;
 
+    @ApiModelProperty
     private Integer userid;
 
+    @ApiModelProperty
     private Integer fanId;
 
     @Schema(description = "逻辑删除键")

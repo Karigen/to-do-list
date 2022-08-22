@@ -15,6 +15,7 @@ import org.tai.todolist.service.FansService;
 import org.tai.todolist.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -53,18 +54,13 @@ public class BlogController {
                 .eq(Fans::getFanId, userid)
                 .count();
 
-        List<Blog> blogs = blogService.list(Wrappers.<Blog>lambdaQuery()
-                .eq(Blog::getUserid, userid));
+        List<Map<Integer, Object>> blogs = blogService.selectAllBlogsRelated(userid);
 
         return JSONResponseEntity.ok()
                 .newData("fans", fans)
                 .newData("count", count)
                 .newData("follow", follow)
                 .newData("blogs", blogs);
-    }
-
-    private long getCurrentTimeHours() {
-        return System.currentTimeMillis() / (60 * 60 * 1_000);
     }
 
     @PostMapping("/add")
@@ -74,7 +70,7 @@ public class BlogController {
         new Blog()
                 .setUserid(userid)
                 .setContext(context)
-                .setPostTime((int) getCurrentTimeHours())
+                .setPostTime((int) (System.currentTimeMillis() / 1_000))
                 .insert();
 
         return JSONResponseEntity.ok();
