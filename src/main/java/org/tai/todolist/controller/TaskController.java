@@ -1,5 +1,7 @@
 package org.tai.todolist.controller;
 
+import cn.hutool.core.convert.Convert;
+import cn.hutool.core.convert.Converter;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import io.swagger.annotations.Api;
@@ -10,7 +12,12 @@ import org.tai.todolist.entity.JSONResponseEntity;
 import org.tai.todolist.entity.Task;
 import org.tai.todolist.entity.User;
 import org.tai.todolist.service.TaskService;
+import org.tai.todolist.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -60,11 +67,12 @@ public class TaskController {
                 .newData("tasks", tasks);
     }
 
-    @PostMapping("/deleteall")
+    @GetMapping("/deleteall")
     @ApiOperation("删除部分任务")
     public JSONResponseEntity deleteAll(@RequestParam("userid") Integer userid,
-                                        @RequestParam("taskid") List<Integer> taskId) {
-        taskService.removeBatchByIds(taskId);
+                                        @RequestParam("taskid") List<Integer> taskid) {
+
+        taskService.removeBatchByIds(taskid);
 
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
                 .eq(Task::getUserid, userid));
@@ -109,19 +117,21 @@ public class TaskController {
     @PostMapping("/update")
     @ApiOperation("更新任务")
     public JSONResponseEntity update(@RequestParam("taskid") Integer taskId,
-                                     @RequestParam("description") String description,
-                                     @RequestParam("deadline") Integer deadline,
-                                     @RequestParam("finish") Boolean finish) {
+                                     @RequestParam("userid") Integer userid,
+                                     @RequestParam(value = "description", required = false) String description,
+                                     @RequestParam(value = "deadline", required = false) Integer deadline,
+                                     @RequestParam(value = "finish", required = false) Boolean finish) {
         Task task = new Task()
                 .setTaskId(taskId)
                 .setDescription(description)
                 .setDeadline(deadline)
                 .setFinish(finish);
 
-        taskService.update(task, Wrappers.<Task>lambdaQuery().eq(Task::getTaskId, taskId));
+        taskService.update(task, Wrappers.<Task>lambdaQuery()
+                .eq(Task::getTaskId, taskId));
 
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
-                .eq(Task::getTaskId, taskId));
+                .eq(Task::getUserid, userid));
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
