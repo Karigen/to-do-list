@@ -16,22 +16,18 @@
         blog_id, userid, `context`, post_time, flag
     </sql>
 
-    <select resultType="java.util.Map" id="selectAllBlogsRelated" parameterType="integer">
-        select u1.username username, b1.blog_id blogId, b1.context context, b1.post_time postTime
-        from to_do_list.blog b1
-                 join to_do_list.user u1
-                      on b1.userid = u1.userid
-        where b1.userid = #{userid}
-        union
-        select u2.username username, b2.blog_id blogId, b2.context context, b2.post_time postTime
-        from to_do_list.blog b2
-                 join to_do_list.user u2
-                      on b2.userid = u2.userid
-        where b2.userid in (select f.userid
-                            from to_do_list.blog b
-                                     join to_do_list.fans f
-                                          on f.fan_id = b.userid
-                            where b.userid = #{userid})
+    <select resultType="map" id="selectAllBlogsRelated" parameterType="integer">
+        select u.username usernem, b.blog_id vlogId, b.context context, b.post_time postTime
+        from to_do_list.blog b
+                 join to_do_list.user u
+                      using (userid)
+        where u.userid = #{userid}
+           or u.userid in (select f.userid
+                           from to_do_list.blog b
+                                    join to_do_list.fans f
+                                         using (userid)
+                           where b.userid = #{userid})
+        order by b.post_time desc;
     </select>
 
 </mapper>

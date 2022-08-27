@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.sound.midi.Soundbank;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Karigen B
@@ -19,8 +20,13 @@ import java.util.List;
 public class TestController {
 
     @PostMapping("/v1")
-    public String v1(List<Object> msg) {
-        System.out.println(msg);
+    public String v1(@RequestBody Map<String, Object> msgs) {
+        Object userid = msgs.get("userid");
+        System.out.println("userid = " + userid);
+
+        // List<?>
+        Object taskId = msgs.get("taskId[]");
+        System.out.println("taskId[] = " + taskId);
         return "success";
     }
 
@@ -43,4 +49,13 @@ public class TestController {
         return "success";
     }
 
+    // 请求能发出来但是读取不到
+    @PostMapping("/v4")
+    public String v4(@RequestBody Msg msg) {
+        System.out.println(msg);
+        return "success";
+    }
+
 }
+
+record Msg(Integer userid, Integer[] taskId){}
