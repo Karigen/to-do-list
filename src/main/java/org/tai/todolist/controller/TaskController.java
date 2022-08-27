@@ -1,23 +1,14 @@
 package org.tai.todolist.controller;
 
-import cn.hutool.core.convert.Convert;
-import cn.hutool.core.convert.Converter;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.tai.todolist.entity.JSONResponseEntity;
 import org.tai.todolist.entity.Task;
-import org.tai.todolist.entity.User;
 import org.tai.todolist.service.TaskService;
-import org.tai.todolist.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**

@@ -2,7 +2,6 @@ package org.tai.todolist.config;
 
 import cn.hutool.crypto.digest.Digester;
 import cn.hutool.crypto.digest.MD5;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
