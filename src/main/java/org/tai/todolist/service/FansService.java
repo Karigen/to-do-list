@@ -3,6 +3,9 @@ package org.tai.todolist.service;
 import org.tai.todolist.entity.Fans;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务类
@@ -12,5 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-08-09
  */
 public interface FansService extends IService<Fans> {
+    List<Map<Integer,Object>> selectByUserId(Integer userid);
 
+    List<Map<Integer, Object>> selectByFanId(Integer userid);
 }

@@ -6,6 +6,9 @@ import org.tai.todolist.service.FansService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  *  服务实现类
@@ -16,5 +19,11 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class FansServiceImpl extends ServiceImpl<FansMapper, Fans> implements FansService {
+   public List<Map<Integer,Object>> selectByUserId(Integer userid){
+         return baseMapper.selectByUserId(userid);
+   }
 
+    public List<Map<Integer, Object>> selectByFanId(Integer userid){
+            return baseMapper.selectByFanId(userid);
+    }
 }

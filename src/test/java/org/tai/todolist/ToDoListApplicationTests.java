@@ -2,6 +2,7 @@ package org.tai.todolist;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
@@ -14,13 +15,19 @@ import com.baomidou.mybatisplus.generator.config.querys.MySqlQuery;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.tai.todolist.dao.BlogMapper;
+import org.tai.todolist.dao.FansMapper;
+import org.tai.todolist.entity.Blog;
+import org.tai.todolist.entity.Fans;
+import org.tai.todolist.entity.User;
 import org.tai.todolist.exception.BusinessException;
 import org.tai.todolist.exception.ErrorCode;
+import org.tai.todolist.service.FansService;
 
 import java.util.List;
 import java.util.Map;
@@ -58,7 +65,6 @@ class ToDoListApplicationTests {
                     和mybatis一样XxMapper和XxMapper.xml放在一起是不能被扫描到的
                  */
                 .xml("mapper")
-
                 .parent("org.tai.todolist")
                 .entity("entity")
                 .service("service")
@@ -131,4 +137,63 @@ class ToDoListApplicationTests {
         maps.forEach(System.out::println);
     }
 
+    @Test
+    public void testInsetUser() {
+        new User().setEmail("1317794623@qq.com")
+                .setPassword("123")
+                .setUserid(1)
+                .setUsername("zhuzhu")
+                .insert();
+    }
+
+    @Test
+    public void testRemoveBlog() {
+        blogMapper.deleteById(1);
+    }
+
+    @Test
+    public void testInsertBlog() {
+        new Blog().setUserid(1)
+                .setContext("test")
+                .setPostTime((int) (System.currentTimeMillis() / 1000))
+                .setFlag(true)
+                .insert();
+
+    }
+
+    @Test
+    public void testSelectBlog() throws JsonProcessingException {
+        Blog blog = new Blog().selectById(1);
+        String s = new ObjectMapper().writeValueAsString(blog);
+        System.out.println(s);
+    }
+
+    @Autowired
+    private FansMapper fansMapper;
+
+    @Test
+    public void testGetFans() {
+       int userid=1;
+        List<Map<Integer, Object>> fans = fansMapper.selectByUserId(userid);
+        int count = fans.size();
+        System.out.println(fans);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testGetFollows(){
+        int fanid=1;
+        List<Map<Integer, Object>> fans = fansMapper.selectByFanId(fanid);
+        int count = fans.size();
+        System.out.println(fans);
+        System.out.println(count);
+    }
+
+    @Test
+    public void testInsertFans() {
+        new Fans().setUserid(1)
+                .setFanId(2)
+                .insert();
+    }
 }
+

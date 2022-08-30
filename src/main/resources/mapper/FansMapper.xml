@@ -14,5 +14,23 @@
     <sql id="Base_Column_List">
         relation_id, userid, fan_id, flag
     </sql>
+    <select id="selectByUserId" parameterType="java.lang.Integer" resultType="map">
+        select
+            <include refid="Base_Column_List" />
+        from
+            fans
+        where
+            userid = #{userid}
+        and flag = 1
+    </select>
 
+    <select id="selectByFanId" parameterType="java.lang.Integer" resultType="map">
+        select
+            <include refid="Base_Column_List" />
+        from
+            fans
+        where
+            fan_id = #{fanId}
+        and flag = 1
+    </select>
 </mapper>
