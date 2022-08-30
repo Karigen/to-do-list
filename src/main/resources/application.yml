@@ -22,3 +22,8 @@ swagger:
   contact:
     name: Karigen
     email: 1837633996@qq.com
+server:
+  domain: http://localhost:8080
+file:
+  path: D:\images\
+  prefix: /images/

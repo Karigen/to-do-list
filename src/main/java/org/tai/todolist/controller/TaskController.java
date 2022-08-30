@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/task")
 @Api("任务管理")
-@CrossOrigin
 public class TaskController {
 
     @Autowired

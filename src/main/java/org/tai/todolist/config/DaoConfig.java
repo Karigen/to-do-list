@@ -9,5 +9,5 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @MapperScan("org.tai.todolist.dao")
-public class DAOConfig {
+public class DaoConfig {
 }

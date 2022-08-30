@@ -27,7 +27,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/blog")
-@CrossOrigin
 public class BlogController {
 
     @Autowired
