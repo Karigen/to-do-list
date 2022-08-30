@@ -25,7 +25,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/fan")
-@CrossOrigin
 public class FanController {
     @Autowired
     private FansService fansService;
