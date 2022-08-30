@@ -96,4 +96,23 @@ public class BlogController {
                 .newData("userid", follow.getUserid());
     }
 
+    @PostMapping("/delete")
+    @ApiOperation("删除本条blog")
+    public JSONResponseEntity delete(@RequestParam("blogId") Integer blogid) {
+        blogService.lambdaUpdate()
+                .eq(Blog::getBlogId, blogid)
+                .remove();
+        return JSONResponseEntity.ok();
+    }
+
+    @PostMapping("/update")
+    @ApiOperation("更新博客")
+    public JSONResponseEntity update(@RequestParam("blogId") Integer blogid,
+                                     @RequestParam("context") String context) {
+        blogService.lambdaUpdate()
+                .eq(Blog::getBlogId, blogid)
+                .set(Blog::getContext, context)
+                .update();
+        return JSONResponseEntity.ok();
+    }
 }
