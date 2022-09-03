@@ -137,7 +137,7 @@ class ToDoListApplicationTests {
         maps.forEach(System.out::println);
     }
 
-    @Test
+    // @Test
     public void testInsetUser() {
         new User().setEmail("1317794623@qq.com")
                 .setPassword("123")
@@ -146,12 +146,12 @@ class ToDoListApplicationTests {
                 .insert();
     }
 
-    @Test
+    // @Test
     public void testRemoveBlog() {
         blogMapper.deleteById(1);
     }
 
-    @Test
+    // @Test
     public void testInsertBlog() {
         new Blog().setUserid(1)
                 .setContext("test")
@@ -161,7 +161,7 @@ class ToDoListApplicationTests {
 
     }
 
-    @Test
+    // @Test
     public void testSelectBlog() throws JsonProcessingException {
         Blog blog = new Blog().selectById(1);
         String s = new ObjectMapper().writeValueAsString(blog);
@@ -171,7 +171,7 @@ class ToDoListApplicationTests {
     @Autowired
     private FansMapper fansMapper;
 
-    @Test
+    // @Test
     public void testGetFans() {
        int userid=1;
         List<Map<Integer, Object>> fans = fansMapper.selectByUserId(userid);
@@ -180,7 +180,7 @@ class ToDoListApplicationTests {
         System.out.println(count);
     }
 
-    @Test
+    // @Test
     public void testGetFollows(){
         int fanid=1;
         List<Map<Integer, Object>> fans = fansMapper.selectByFanId(fanid);
@@ -189,7 +189,7 @@ class ToDoListApplicationTests {
         System.out.println(count);
     }
 
-    @Test
+    // @Test
     public void testInsertFans() {
         new Fans().setUserid(1)
                 .setFanId(2)

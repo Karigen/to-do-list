@@ -17,16 +17,17 @@
     </sql>
 
     <select resultType="map" id="selectAllBlogsRelated" parameterType="integer">
-        select u.username usernem, b.blog_id vlogId, b.context context, b.post_time postTime
+        select u.username username, b.blog_id blogId, b.context context, b.post_time postTime
         from to_do_list.blog b
                  join to_do_list.user u
                       using (userid)
-        where u.userid = #{userid}
-           or u.userid in (select f.userid
-                           from to_do_list.blog b
-                                    join to_do_list.fans f
-                                         using (userid)
-                           where b.userid = #{userid})
+        where b.flag = true
+          and (u.userid = #{userid}
+            or u.userid in (select f.userid
+                            from to_do_list.blog b
+                                     join to_do_list.fans f
+                                          using (userid)
+                            where b.userid = #{userid}))
         order by b.post_time desc;
     </select>
 
