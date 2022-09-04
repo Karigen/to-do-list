@@ -76,25 +76,7 @@ public class BlogController {
         return JSONResponseEntity.ok();
     }
 
-    @PostMapping("/users")
-    @ApiOperation("查询用户并follow")
-    public JSONResponseEntity users(@RequestParam("myuserid") Integer myUserid,
-                                    @RequestParam("searchingusername") String searchingUsername) {
-        User follow = userService.getOne(Wrappers.<User>lambdaQuery()
-                .eq(User::getUsername, searchingUsername));
 
-        if (follow == null) {
-            throw new BusinessException(ErrorCode.USERNAME_NOT_EXIST);
-        }
-
-        new Fans()
-                .setUserid(follow.getUserid())
-                .setFanId(myUserid)
-                .insert();
-
-        return JSONResponseEntity.ok()
-                .newData("userid", follow.getUserid());
-    }
 
     @PostMapping("/delete")
     @ApiOperation("删除本条blog")

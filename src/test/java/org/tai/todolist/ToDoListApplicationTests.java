@@ -173,13 +173,16 @@ class ToDoListApplicationTests {
 
     @Test
     public void testGetFans() {
-       int userid=1;
+       int userid=4;
         List<Map<Integer, Object>> fans = fansMapper.selectByUserId(userid);
         int count = fans.size();
         System.out.println(fans);
         System.out.println(count);
     }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     @Test
     public void testGetFollows(){
         int fanid=1;

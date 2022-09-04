@@ -16,33 +16,40 @@
         , userid, fan_id, flag
     </sql>
     <select id="selectByUserId" parameterType="java.lang.Integer" resultType="map">
-        select
-        <include refid="Base_Column_List"/>
-        from
-        fans
-        where
-        userid = #{userid}
-        and flag = 1
+        select distinct u.userid             as fanId,
+                        u.username           as fanName,
+                        (case
+                             when #{userid} in (select distinct uu.userid
+                                                from fans
+                                                         left join user uu on uu.userid = fans.fan_id
+                                                where fans.userid = u.userid
+                                                  and fans.flag = 1) then true
+                             else false end) as followed
+
+        from fans
+                 left join user u on u.userid = fans.fan_id
+        where fans.userid = #{userid}
+          and fans.flag = 1
     </select>
 
     <select id="selectByFanId" parameterType="java.lang.Integer" resultType="map">
-        select
-        <include refid="Base_Column_List"/>
-        from
-        fans
-        where
-        fan_id = #{fanId}
-        and flag = 1
+        select distinct u.userid as followId, u.username as followName
+        from fans
+                 left join user u on u.userid = fans.fan_id
+        where fans.fan_id = #{fanid}
+          and fans.flag = 1
     </select>
 
     <select id="selectCommonFollows" parameterType="java.lang.Integer" resultType="map">
-        select distinct f1.userid as id
-        from fans as f1
-                 cross join fans as f2
-        where f1.fan_id = #{fan1Id}
-          and f2.fan_id = #{fan2Id}
-          and f1.flag = true
-          and f2.flag = true
+        select *
+        from user
+        where userid in (select distinct f1.userid as id
+                         from fans as f1
+                                  cross join fans as f2
+                         where f1.fan_id = #{fan1Id}
+                           and f2.fan_id = #{fan2Id}
+                           and f1.flag = true
+                           and f2.flag = true)
     </select>
 
     <select id="selectMutualFollows" parameterType="java.lang.Integer" resultType="map">
