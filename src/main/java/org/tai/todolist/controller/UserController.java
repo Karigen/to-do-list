@@ -23,7 +23,6 @@ import org.tai.todolist.service.UserService;
 @RestController
 @RequestMapping("/user")
 @Api("用户管理")
-@CrossOrigin
 public class UserController {
 
     @Autowired

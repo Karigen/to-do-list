@@ -22,7 +22,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/task")
 @Api("任务管理")
-@CrossOrigin
 public class TaskController {
 
     @Autowired
@@ -41,7 +40,7 @@ public class TaskController {
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
                 .eq(Task::getUserid, userid));
 
-        return JSONResponseEntity.ok()
+        return addTaskDetails(JSONResponseEntity.ok(), userid)
                 .newData("tasks", tasks);
     }
 
@@ -54,7 +53,7 @@ public class TaskController {
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
                 .eq(Task::getUserid, userid));
 
-        return JSONResponseEntity.ok()
+        return addTaskDetails(JSONResponseEntity.ok(), userid)
                 .newData("tasks", tasks);
     }
 
@@ -68,7 +67,7 @@ public class TaskController {
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
                 .eq(Task::getUserid, userid));
 
-        return JSONResponseEntity.ok()
+        return addTaskDetails(JSONResponseEntity.ok(), userid)
                 .newData("tasks", tasks);
     }
 
@@ -78,31 +77,8 @@ public class TaskController {
         List<Task> tasks = taskService.list(Wrappers.<Task>lambdaQuery()
                 .eq(Task::getUserid, userid));
 
-        Long unfinished = taskService.lambdaQuery()
-                .eq(Task::getUserid, userid)
-                .eq(Task::getFinish, false)
-                .count();
-
-        Long finished = taskService.lambdaQuery()
-                .eq(Task::getUserid, userid)
-                .eq(Task::getFinish, true)
-                .count();
-
-        Long all = taskService.lambdaQuery()
-                .eq(Task::getUserid, userid)
-                .count();
-
-        Long isExpire = taskService.lambdaQuery()
-                .eq(Task::getUserid, userid)
-                .gt(Task::getDeadline, System.currentTimeMillis())
-                .count();
-
-        return JSONResponseEntity.ok()
-                .newData("tasks", tasks)
-                .newData("unfinished", unfinished)
-                .newData("finished", finished)
-                .newData("all", all)
-                .newData("isExpire", isExpire);
+        return addTaskDetails(JSONResponseEntity.ok(), userid)
+                .newData("tasks", tasks);
     }
 
     @PostMapping("/update")
@@ -126,6 +102,33 @@ public class TaskController {
 
         return JSONResponseEntity.ok()
                 .newData("tasks", tasks);
+    }
+
+    public JSONResponseEntity addTaskDetails(JSONResponseEntity jsonResponseEntity, Integer userid) {
+        Long unfinished = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .eq(Task::getFinish, false)
+                .count();
+
+        Long finished = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .eq(Task::getFinish, true)
+                .count();
+
+        Long all = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .count();
+
+        Long isExpire = taskService.lambdaQuery()
+                .eq(Task::getUserid, userid)
+                .gt(Task::getDeadline, System.currentTimeMillis())
+                .count();
+
+        return jsonResponseEntity
+                .newData("unfinished", unfinished)
+                .newData("finished", finished)
+                .newData("all", all)
+                .newData("isExpire", isExpire);
     }
 
 }

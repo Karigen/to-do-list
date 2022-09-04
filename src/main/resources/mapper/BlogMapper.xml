@@ -21,12 +21,11 @@
         from to_do_list.blog b
                  join to_do_list.user u
                       using (userid)
-        where u.userid = #{userid}
-           or u.userid in (select f.userid
-                           from to_do_list.blog b
-                                    join to_do_list.fans f
-                                         using (userid)
-                           where b.userid = #{userid})
+        where (u.userid = #{userid}
+            or u.userid in (select f.userid
+                            from to_do_list.fans f
+                            where f.fan_id = #{userid}))
+          and b.flag = true
         order by b.post_time desc;
     </select>
 

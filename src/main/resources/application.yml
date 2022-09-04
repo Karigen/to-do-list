@@ -3,10 +3,14 @@ spring:
     url: jdbc:mysql:///to_do_list
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: Asky4ofstars
+    password: password
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 20MB
 mybatis-plus:
   global-config:
     db-config:
@@ -22,3 +26,8 @@ swagger:
   contact:
     name: Karigen
     email: 1837633996@qq.com
+server:
+  domain: http://localhost:8080
+file:
+  path: D:\images\
+  prefix: /images/
