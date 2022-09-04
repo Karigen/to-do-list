@@ -195,5 +195,18 @@ class ToDoListApplicationTests {
                 .setFanId(2)
                 .insert();
     }
+
+    @Test
+    public void testCommonFollows(){
+        List<Map<Integer, Object>> maps = fansMapper.selectCommonFollows(2, 3);
+        System.out.println(maps);
+    }
+
+    @Test
+    public void testMutualFollows(){
+        List<Map<Integer, Object>> maps = fansMapper.selectMutualFollows(1);
+        System.out.println(maps);
+    }
+
 }
 

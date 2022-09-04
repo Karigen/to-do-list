@@ -4,33 +4,56 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="org.tai.todolist.entity.Fans">
-        <id column="relation_id" property="relationId" />
-        <result column="userid" property="userid" />
-        <result column="fan_id" property="fanId" />
-        <result column="flag" property="flag" />
+        <id column="relation_id" property="relationId"/>
+        <result column="userid" property="userid"/>
+        <result column="fan_id" property="fanId"/>
+        <result column="flag" property="flag"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        relation_id, userid, fan_id, flag
+        relation_id
+        , userid, fan_id, flag
     </sql>
     <select id="selectByUserId" parameterType="java.lang.Integer" resultType="map">
         select
-            <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from
-            fans
+        fans
         where
-            userid = #{userid}
+        userid = #{userid}
         and flag = 1
     </select>
 
     <select id="selectByFanId" parameterType="java.lang.Integer" resultType="map">
         select
-            <include refid="Base_Column_List" />
+        <include refid="Base_Column_List"/>
         from
-            fans
+        fans
         where
-            fan_id = #{fanId}
+        fan_id = #{fanId}
         and flag = 1
     </select>
+
+    <select id="selectCommonFollows" parameterType="java.lang.Integer" resultType="map">
+        select distinct f1.userid as id
+        from fans as f1
+                 cross join fans as f2
+        where f1.fan_id = #{fan1Id}
+          and f2.fan_id = #{fan2Id}
+          and f1.flag = true
+          and f2.flag = true
+    </select>
+
+    <select id="selectMutualFollows" parameterType="java.lang.Integer" resultType="map">
+        select fan_id
+        from fans
+        where userid = #{fanId}
+          and fan_id in (select userid
+                         from fans
+                         where fan_id = #{fanId}
+                           and flag = 1)
+          and flag = 1
+    </select>
+
 </mapper>

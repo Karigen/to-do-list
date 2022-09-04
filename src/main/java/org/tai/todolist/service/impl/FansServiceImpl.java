@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author Karigen
@@ -19,11 +19,21 @@ import java.util.Map;
  */
 @Service
 public class FansServiceImpl extends ServiceImpl<FansMapper, Fans> implements FansService {
-   public List<Map<Integer,Object>> selectByUserId(Integer userid){
-         return baseMapper.selectByUserId(userid);
-   }
+    public List<Map<Integer, Object>> selectByUserId(Integer userid) {
+        return baseMapper.selectByUserId(userid);
+    }
 
-    public List<Map<Integer, Object>> selectByFanId(Integer userid){
-            return baseMapper.selectByFanId(userid);
+    public List<Map<Integer, Object>> selectByFanId(Integer userid) {
+        return baseMapper.selectByFanId(userid);
+    }
+
+    @Override
+    public List<Map<Integer, Object>> selectCommonFollows(Integer fan1Id, Integer fan2Id) {
+        return baseMapper.selectCommonFollows(fan1Id, fan2Id);
+    }
+
+    @Override
+    public List<Map<Integer, Object>> selectMutualFollows(Integer fanId) {
+        return baseMapper.selectMutualFollows(fanId);
     }
 }

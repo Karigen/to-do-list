@@ -24,4 +24,10 @@ public interface FansMapper extends BaseMapper<Fans> {
 
     @MapKey("fanId")
     List<Map<Integer, Object>> selectByFanId(Integer userid);
+
+    @MapKey("fan1Id")
+    List<Map<Integer, Object>> selectCommonFollows(Integer fan1Id, Integer fan2Id);
+
+    @MapKey("fanId")
+    List<Map<Integer,Object>> selectMutualFollows(Integer fanId);
 }
