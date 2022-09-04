@@ -18,4 +18,8 @@ public interface FansService extends IService<Fans> {
     List<Map<Integer,Object>> selectByUserId(Integer userid);
 
     List<Map<Integer, Object>> selectByFanId(Integer userid);
+
+    List<Map<Integer, Object>> selectCommonFollows(Integer fan1Id, Integer fan2Id);
+
+    List<Map<Integer,Object>> selectMutualFollows(Integer fanId);
 }
