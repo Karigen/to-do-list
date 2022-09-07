@@ -83,7 +83,7 @@ public class FanController {
                 .newData("follows", follows);
     }
 
-    //fans数组
+    //follows数组和fans数组
     @PostMapping("/follow")
     @ApiOperation("查询用户并follow")
     public JSONResponseEntity users(@RequestParam("myuserid") Integer myUserid,
@@ -99,8 +99,10 @@ public class FanController {
                 .setUserid(follow.getUserid())
                 .setFanId(myUserid)
                 .insert();
+        List<Map<Integer, Object>> follows = fansService.selectByFanId(myUserid);
         List<Map<Integer, Object>> fans = fansService.selectByUserId(myUserid);
         return JSONResponseEntity.ok()
+                .newData("follows", follows)
                 .newData("fans", fans);
     }
 
