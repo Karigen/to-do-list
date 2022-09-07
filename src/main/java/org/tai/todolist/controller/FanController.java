@@ -75,13 +75,9 @@ public class FanController {
     @PostMapping("/delete")
     @ApiOperation("取消关注")
     public JSONResponseEntity deleteFan(@RequestParam("fanId") Integer fanId, @RequestParam("userId") Integer userId) {
-        fansService.lambdaUpdate()
-                .eq(Fans::getFanId, fanId)
-                .eq(Fans::getUserid, userId)
-                .remove();
-
-        List<Map<Integer, Object>> fans = fansService.selectByUserId(userId);
-        List<Map<Integer, Object>> follows = fansService.selectByFanId(userId);
+        fansService.deleteFan(fanId, userId);
+        List<Map<Integer, Object>> fans = fansService.selectByUserId(fanId);
+        List<Map<Integer, Object>> follows = fansService.selectByFanId(fanId);
         return JSONResponseEntity.ok()
                 .newData("fans", fans)
                 .newData("follows", follows);
@@ -107,4 +103,5 @@ public class FanController {
         return JSONResponseEntity.ok()
                 .newData("fans", fans);
     }
+
 }

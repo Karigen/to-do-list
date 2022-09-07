@@ -36,4 +36,9 @@ public class FansServiceImpl extends ServiceImpl<FansMapper, Fans> implements Fa
     public List<Map<Integer, Object>> selectMutualFollows(Integer fanId) {
         return baseMapper.selectMutualFollows(fanId);
     }
+
+    @Override
+    public void deleteFan(Integer fanId, Integer userId) {
+        baseMapper.deleteFan(fanId, userId);
+    }
 }
