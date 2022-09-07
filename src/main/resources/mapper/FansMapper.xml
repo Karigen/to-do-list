@@ -33,11 +33,12 @@
     </select>
 
     <select id="selectByFanId" parameterType="java.lang.Integer" resultType="map">
-        select distinct u.userid as followId, u.username as followName
+        select u.userid as followId, u.username as followName
         from fans
-                 left join user u on u.userid = fans.fan_id
-        where fans.fan_id = #{fanid}
-          and fans.flag = 1
+                 join user u
+                      on u.userid = fans.userid
+        where fans.fan_id = #{fanId}
+          and fans.flag = true
     </select>
 
     <select id="selectCommonFollows" parameterType="java.lang.Integer" resultType="map">
@@ -63,4 +64,10 @@
           and flag = 1
     </select>
 
+    <delete id="deleteFan">
+        delete
+        from fans
+        where userid = #{userId}
+          and fan_id = #{fanId}
+    </delete>
 </mapper>

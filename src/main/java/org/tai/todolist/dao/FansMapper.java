@@ -30,4 +30,7 @@ public interface FansMapper extends BaseMapper<Fans> {
 
     @MapKey("fanId")
     List<Map<Integer,Object>> selectMutualFollows(Integer fanId);
+
+    @MapKey("fanId")
+    void deleteFan(Integer fanId, Integer userId);
 }

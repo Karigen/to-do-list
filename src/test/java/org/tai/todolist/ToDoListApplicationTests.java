@@ -173,16 +173,16 @@ class ToDoListApplicationTests {
 
     // @Test
     public void testGetFans() {
-       int userid=4;
+        int userid = 4;
         List<Map<Integer, Object>> fans = fansMapper.selectByUserId(userid);
         int count = fans.size();
         System.out.println(fans);
         System.out.println(count);
     }
-    
+
     @Test
-    public void testGetFollows(){
-        int fanid=1;
+    public void testGetFollows() {
+        int fanid = 5;
         List<Map<Integer, Object>> fans = fansMapper.selectByFanId(fanid);
         int count = fans.size();
         System.out.println(fans);
@@ -197,16 +197,20 @@ class ToDoListApplicationTests {
     }
 
     @Test
-    public void testCommonFollows(){
+    public void testCommonFollows() {
         List<Map<Integer, Object>> maps = fansMapper.selectCommonFollows(2, 3);
         System.out.println(maps);
     }
 
     @Test
-    public void testMutualFollows(){
+    public void testMutualFollows() {
         List<Map<Integer, Object>> maps = fansMapper.selectMutualFollows(1);
         System.out.println(maps);
     }
 
+    @Test
+    public void testDelete() {
+        fansMapper.deleteFan(8,7);
+    }
 }
 
