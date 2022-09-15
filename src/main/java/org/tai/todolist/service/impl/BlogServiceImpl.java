@@ -24,4 +24,14 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     public List<Map<Integer, Object>> selectAllBlogsRelated(Integer userid) {
         return baseMapper.selectAllBlogsRelated(userid);
     }
+
+    @Override
+    public List<Map<Integer, Object>> selectAllBlogs() {
+        return baseMapper.selectAllBlogs();
+    }
+
+    @Override
+    public void deleteBlog(Integer blogId) {
+        baseMapper.deleteBlog(blogId);
+    }
 }

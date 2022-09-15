@@ -212,5 +212,14 @@ class ToDoListApplicationTests {
     public void testDelete() {
         fansMapper.deleteFan(8,7);
     }
+
+    @Test
+    public void testBlogGet(){
+        blogMapper.deleteBlog(4);
+        List<Map<Integer, Object>> maps = blogMapper.selectAllBlogs();
+        maps.forEach(System.out::println);
+
+    }
+
 }
 

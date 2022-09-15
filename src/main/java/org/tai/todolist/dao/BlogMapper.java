@@ -25,4 +25,8 @@ public interface BlogMapper extends BaseMapper<Blog> {
     @MapKey("blogId")
     List<Map<Integer, Object>> selectAllBlogsRelated(Integer userid);
 
+
+    List<Map<Integer, Object>> selectAllBlogs();
+
+    void deleteBlog(Integer blogId);
 }
