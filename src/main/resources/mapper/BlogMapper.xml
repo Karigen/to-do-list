@@ -13,7 +13,8 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        blog_id, userid, `context`, post_time, flag
+        blog_id
+        , userid, `context`, post_time, flag
     </sql>
 
     <select resultType="map" id="selectAllBlogsRelated" parameterType="integer">
@@ -29,4 +30,17 @@
         order by b.post_time desc;
     </select>
 
+    <select resultType="map" id="selectAllBlogs">
+        select u.username username, b.blog_id blogId, b.context context, b.post_time postTime
+        from to_do_list.blog b
+                 join to_do_list.user u
+                      using (userid)
+        order by b.post_time desc;
+    </select>
+
+    <delete id="deleteBlog">
+        delete
+        from to_do_list.blog b
+        where b.blog_id = #{blogId};
+    </delete>
 </mapper>

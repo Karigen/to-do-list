@@ -40,7 +40,29 @@ public class BlogController {
 
     @PostMapping("/get")
     @ApiOperation("获取用户粉丝数,博客数,follow数和所有博客")
-    public JSONResponseEntity get(@RequestParam("userid") Integer userid) {
+    public JSONResponseEntity get(@RequestParam("userid") Integer userid,@RequestParam("isManagerMode") Boolean isManager) {
+      if(isManager){
+          Long fans = fansService.lambdaQuery()
+                  .eq(Fans::getUserid, userid)
+                  .count();
+
+          Long count = blogService.lambdaQuery()
+                  .eq(Blog::getUserid, userid)
+                  .count();
+
+          Long follow = fansService.lambdaQuery()
+                  .eq(Fans::getFanId, userid)
+                  .count();
+
+          List<Map<Integer, Object>> blogs = blogService.selectAllBlogs();
+
+          return JSONResponseEntity.ok()
+                  .newData("fans", fans)
+                  .newData("count", count)
+                  .newData("follow", follow)
+                  .newData("blogs", blogs);
+
+      }
         Long fans = fansService.lambdaQuery()
                 .eq(Fans::getUserid, userid)
                 .count();
@@ -80,9 +102,7 @@ public class BlogController {
     @PostMapping("/delete")
     @ApiOperation("删除本条blog")
     public JSONResponseEntity delete(@RequestParam("blogId") Integer blogid) {
-        blogService.lambdaUpdate()
-                .eq(Blog::getBlogId, blogid)
-                .remove();
+        blogService.deleteBlog(blogid);
         return JSONResponseEntity.ok();
     }
 

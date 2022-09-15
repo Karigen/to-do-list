@@ -16,4 +16,8 @@ import java.util.Map;
  */
 public interface BlogService extends IService<Blog> {
     List<Map<Integer,Object>> selectAllBlogsRelated(Integer userid);
+
+    List<Map<Integer,Object>> selectAllBlogs();
+
+    void deleteBlog(Integer blogId);
 }
